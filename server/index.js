@@ -10,9 +10,21 @@ dotenv.config();
 
 // Initialize app
 const app = express();
+
+const allowedOrigins = [
+  'http://localhost:5173',                    // local dev
+  'https://tripjournall.netlify.app/',           // production frontend
+];
+
 app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
+  origin: (origin, callback) => {
+    // allow requests with no origin (like mobile apps or curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true, // only if you're using cookies/auth
 }));
 app.use(express.json());
 

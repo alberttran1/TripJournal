@@ -97,7 +97,6 @@ const TripScreen : React.FC = () => {
         }
         if(!trip?._id) return
         const newTrip = await editTrip(trip._id,{dateImages: Object.fromEntries(tempMap)})
-        console.log(newTrip)
         setTrip({                
             ...trip,
             dateImages: new Map<string, UploadedImage[]>(
