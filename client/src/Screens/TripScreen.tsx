@@ -157,7 +157,7 @@ const TripScreen : React.FC = () => {
                 </div>
             </HoverMoveContainer>
         </div>
-        <div className='flex gap-[2vw] items-center flex-wrap justify-center overflow-scroll md:overflow-visible'>
+        <div className='flex gap-[2vw] items-center flex-wrap justify-center overflow-x-auto md:overflow-visible'>
             <div className='flex flex-col gap-[2vh] items-center min-w-[25rem]'>
                 <div className='z-10'>
                     <HoverMoveContainer 

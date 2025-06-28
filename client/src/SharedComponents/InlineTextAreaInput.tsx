@@ -53,7 +53,7 @@ useEffect(() => {
         onChange={handleChange}
         placeholder={placeholder}
         onBlur={handleBlur}
-        className={`resize-none overflow-scroll bg-transparent focus:outline-none ${className}`}
+        className={`resize-none overflow-y-auto bg-transparent focus:outline-none ${className}`}
         rows={1}
         />
         {loading && <FaSpinner className="ml-2 animate-spin text-white" />}
