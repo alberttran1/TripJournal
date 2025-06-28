@@ -157,7 +157,7 @@ const TripScreen : React.FC = () => {
                 </div>
             </HoverMoveContainer>
         </div>
-        <div className='flex gap-[2vw] items-center flex-wrap justify-center overflow-x-auto md:overflow-visible'>
+        <div className='flex gap-[2vw] items-center flex-wrap justify-center overflow-y-auto md:overflow-visible'>
             <div className='flex flex-col gap-[2vh] items-center min-w-[25rem]'>
                 <div className='z-10'>
                     <HoverMoveContainer 
@@ -205,7 +205,7 @@ const TripScreen : React.FC = () => {
                                 bg-gradient-to-r from-[#FFAAAA] to-[#FFD586]
                                 min-w-[18rem]
                                 '>
-                        <div className='fade-edge flex flex-col gap-4 w-full overflow-y-scroll pb-[2rem]'>
+                        <div className='fade-edge flex flex-col gap-4 w-full overflow-y-auto pb-[2rem]'>
                             {selectedDate &&
                                 <DateCard date={selectedDate} trip={trip} setTrip={setTrip} setModalImage={setModalImage}/>
                             }
