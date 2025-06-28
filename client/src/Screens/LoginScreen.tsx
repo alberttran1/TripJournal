@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import HoverMoveContainer from '../SharedComponents/HoverMoveContainer'
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebase";
@@ -8,7 +8,6 @@ import { loginOrSignUp } from '../Api/authApi';
 
 const LoginScreen = () => {
     const { user, setUser } = useAuth();
-    const [loading, setLoading] = useState(true)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,10 +16,8 @@ const LoginScreen = () => {
                 try {
                   await loginOrSignUp({ uId: user.uid, email: user.email, photoURL: user.photoURL, displayName: user.displayName });
                   navigate("/dashboard");
-                  setLoading(true)
                 } catch (err) {
                   console.error(err);
-                  setLoading(false)
                 }
             };
             handleAuth()
@@ -32,7 +29,7 @@ const LoginScreen = () => {
     try {
         const result = await signInWithPopup(auth, provider);
         const { uid, displayName, email, photoURL } = result.user;
-        setUser({ uid, displayName, email, photoURL });
+        if(displayName && email && photoURL) setUser({ uid, displayName, email, photoURL });
     } catch (error) {
         console.error("Google Sign-In Error:", error);
     }

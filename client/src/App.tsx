@@ -1,6 +1,6 @@
 // src/App.tsx
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
 import StartScreen from "./Screens/LoginScreen";
 import { AuthProvider } from "./Context/AuthContext";
 import DashboardScreen from "./Screens/DashboardScreen";
