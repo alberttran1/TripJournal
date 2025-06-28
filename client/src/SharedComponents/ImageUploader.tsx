@@ -11,7 +11,6 @@ interface ImageUploaderProps {
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({ description, loadingDescription, addImages }) => {
   const [progress, setProgress] = useState<number>(0);
-  const [errorOccurred, setErrorOccurred] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -25,13 +24,12 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ description, loadingDescr
   
     setDisabled(true);
     setProgress(0);
-    setErrorOccurred(false);
   
     const uploadedImages: UploadedImage[] = [];
     let completed = 0;
   
     await Promise.all(
-      imageFiles.map(async (file, index) => {
+      imageFiles.map(async (file) => {
         let takenAt: Date | null = null;
   
         try {
@@ -67,7 +65,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ description, loadingDescr
   
         } catch (err) {
           console.error(err);
-          setErrorOccurred(true);
         } finally {
           completed++;
           setProgress(Math.round((completed / total) * 100));

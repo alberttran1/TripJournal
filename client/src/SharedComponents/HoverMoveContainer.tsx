@@ -1,6 +1,6 @@
 // src/components/HoverMoveCard.tsx
 import React, { useEffect, useRef, useState, type ReactNode } from "react";
-import { easeOut, motion, type TargetAndTransition, type VariantLabels } from "framer-motion";
+import { motion, type TargetAndTransition, type VariantLabels } from "framer-motion";
 
 interface HoverMoveContainerProps {
     children: ReactNode;

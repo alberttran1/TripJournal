@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import type { UploadedImage } from "../types";
 import MemoImage from "./MemoImage";
 
@@ -8,7 +8,6 @@ interface ImageGalleryProps {
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images, setModalImage }) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
     <div>

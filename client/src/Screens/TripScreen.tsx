@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HoverMoveContainer from '../SharedComponents/HoverMoveContainer';
 import ImageUploader from '../SharedComponents/ImageUploader';
 import InlineTextInput from '../SharedComponents/InlineTextInput';
@@ -6,7 +6,7 @@ import CalendarCarousel from '../SharedComponents/CalendarCarousel';
 import DateCard from '../SharedComponents/DateCard';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { Trip, UploadedImage } from '../types';
-import { FaArrowLeft, FaEllipsisVertical, FaSpinner } from 'react-icons/fa6';
+import { FaArrowLeft, FaSpinner } from 'react-icons/fa6';
 import { deleteTrip, editTrip, getTrip } from '../Api/tripApi';
 import { useAuth } from '../Context/AuthContext';
 import TripOptionsDropdown from '../SharedComponents/TripOptionsDropdown';
