@@ -10,10 +10,11 @@ dotenv.config();
 
 // Initialize app
 const app = express();
+app.use(express.json());
 
 const allowedOrigins = [
   'https://tripjournall.netlify.app',
-  'http://localhost:5173',                    // local dev
+  'http://localhost:5173',                   
 ];
 
 app.use(cors({
@@ -25,6 +26,7 @@ app.use(cors({
   },
   credentials: true, // only if you're using cookies or sessions
 }));
+
 
 // Connect to MongoDB
 connectDB();
