@@ -12,21 +12,19 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
+  'https://tripjournall.netlify.app',
   'http://localhost:5173',                    // local dev
-  'https://tripjournall.netlify.app/',           // production frontend
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // allow requests with no origin (like mobile apps or curl)
     if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
     return callback(new Error('Not allowed by CORS'));
   },
-  credentials: true, // only if you're using cookies/auth
+  credentials: true, // only if you're using cookies or sessions
 }));
-app.use(express.json());
 
 // Connect to MongoDB
 connectDB();
