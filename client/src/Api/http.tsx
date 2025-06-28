@@ -2,7 +2,7 @@ import axios from 'axios';
 import { auth } from "../../firebase"; // your firebase.ts
 
 const http = axios.create({
-  baseURL: import.meta.env.VITE_API_URL + "/api" || 'http://localhost:5001/api', // adjust as needed
+  baseURL: import.meta.env.VITE_API_URL + "api" || 'http://localhost:5001/api', // adjust as needed
   withCredentials: true, // if using cookies/session
 });
 
