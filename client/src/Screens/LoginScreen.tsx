@@ -47,17 +47,16 @@ const LoginScreen = () => {
 
 
   const signInWithGoogle = async () => {
-    console.log(isMobile)
     try {
-        if (isMobile) {
-            signInWithRedirect(auth, provider);
-          } else {
+        // if (isMobile) {
+        //     signInWithRedirect(auth, provider);
+        //   } else {
             const result = await signInWithPopup(auth, provider);
             const { uid, displayName, email, photoURL } = result.user;
             if (displayName && email && photoURL) {
               setUser({ uid, displayName, email, photoURL });
             }
-          }
+          // }
     } catch (error) {
         console.error("Google Sign-In Error:", error);
     }
