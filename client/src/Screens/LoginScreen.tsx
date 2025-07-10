@@ -9,7 +9,7 @@ import { loginOrSignUp } from '../Api/authApi';
 const LoginScreen = () => {
     const { user, setUser } = useAuth();
     const navigate = useNavigate();
-    // const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 
     useEffect(() => {
@@ -66,12 +66,12 @@ const LoginScreen = () => {
     <div className='flex flex-col w-[100vw] h-[100vh] justify-center items-center'>
         <div className='absolute'>
             <HoverMoveContainer 
-                className='w-[calc(100vw-1rem)] h-[calc(100vh-1rem)] 
+                className='w-screen h-screen md:w-[calc(100vw-1rem)] md:h-[calc(100vh-1rem)] 
                     bg-gradient-to-r from-[#BFECFF] to-[#CDC1FF]
-                    rounded-xl shadow-xl 
+                    md:rounded-xl shadow-xl 
                     flex items-center justify-center
                  '
-                sensitivity={0.2}
+                sensitivity={isMobile ? 0 : 0.2}
                 >
                 <div className=''>
                 </div>

@@ -18,11 +18,13 @@ const TripScreen : React.FC = () => {
     const navigate = useNavigate()
     const { loading : userLoading } = useAuth()
     const { id } = useParams()
-
+    
     const [modalImage, setModalImage] = useState<number>();
     const [modalMode, setModalMode] = useState<string>("");
     const [editDate, setEditDate] = useState<boolean>(false);
     const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+    
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     useEffect(() => {
         if (modalImage === undefined || trip === undefined) return;
@@ -117,7 +119,7 @@ const TripScreen : React.FC = () => {
                      md:rounded-xl shadow-xl 
                      flex items-center justify-center
                   '
-                 sensitivity={0.2}
+                 sensitivity={isMobile ? 0 : 0.2}
                  >
                     <FaSpinner size={"20vh"} className="ml-2 animate-spin text-white my-20" />
                 </HoverMoveContainer>
@@ -143,7 +145,7 @@ const TripScreen : React.FC = () => {
                     md:rounded-xl shadow-xl 
                     flex items-center justify-center
                 '
-                sensitivity={0.2}
+                sensitivity={isMobile ? 0 : 0.2}
                 >
                 <div className='absolute top-[1rem] left-[1rem] md:top-[2rem] md:left-[2rem]'>
                     <HoverMoveContainer
@@ -161,7 +163,7 @@ const TripScreen : React.FC = () => {
             <div className='flex flex-col gap-[2vh] items-center min-w-[25rem]'>
                 <div className='z-10'>
                     <HoverMoveContainer 
-                        sensitivity={0.6}
+                        sensitivity={isMobile ? 0.2 : 0.6}
                         tiltSensitivity={0.2}
                         whileHover={{scale: 1.1}}
                         doesTilt
@@ -194,7 +196,7 @@ const TripScreen : React.FC = () => {
                 className='
                 flex items-center justify-center
                 '
-                sensitivity={0.4}
+                sensitivity={isMobile ? 0.2 : 0.4}
                 tiltSensitivity={0.2}
                 whileHover={{scale: 1.1}}
                 doesTilt

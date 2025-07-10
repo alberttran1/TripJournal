@@ -20,6 +20,9 @@ const CalendarCarousel: React.FC<CalendarCarouselProps> = ({
 }) => {
   const [selected, setSelected] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 
   function getMonthYearRange(startDate?: Date, endDate?: Date): MonthYear[] {
     const result: MonthYear[] = [];
@@ -103,7 +106,7 @@ const CalendarCarousel: React.FC<CalendarCarouselProps> = ({
                     className={`flex items-center justify-center
                     ${distance > 1 ? "hidden pointer-events-none" : ""}
                     `}
-                    sensitivity={1 - distance * 0.2}
+                    sensitivity={isMobile ? 0 : 1 - distance * 0.2}
                     tiltSensitivity={isSelected ? 1 : 0}
                     initial={{ y: -100}}
                     >
