@@ -109,12 +109,12 @@ const TripScreen : React.FC = () => {
     }
     
     if (!trip) return(
-        <div className='flex flex-col w-[100vw] h-[100vh] justify-center items-center'>
+        <div className='flex flex-col w-[100vw] h-[100vh] overflow-hidden  justify-center items-center'>
         <div className='absolute'>
              <HoverMoveContainer
-                 className='w-[calc(100vw-1rem)] h-[calc(100vh-1rem)] 
+                 className='w-screen h-screen md:w-[calc(100vw-1rem)] md:h-[calc(100vh-1rem)] 
                      bg-gradient-to-r from-[#BFECFF] to-[#CDC1FF]
-                     rounded-xl shadow-xl 
+                     md:rounded-xl shadow-xl 
                      flex items-center justify-center
                   '
                  sensitivity={0.2}
@@ -138,11 +138,11 @@ const TripScreen : React.FC = () => {
     <div className='flex flex-col w-[100vw] h-[100vh] justify-center items-center'>
        <div className='absolute'>
             <HoverMoveContainer
-                className='w-[calc(100vw-1rem)] h-[calc(100vh-1rem)] 
+                 className='w-screen h-screen md:w-[calc(100vw-1rem)] md:h-[calc(100vh-1rem)] 
                     bg-gradient-to-r from-[#BFECFF] to-[#CDC1FF]
-                    rounded-xl shadow-xl 
+                    md:rounded-xl shadow-xl 
                     flex items-center justify-center
-                 '
+                '
                 sensitivity={0.2}
                 >
                 <div className='absolute top-[1rem] left-[1rem] md:top-[2rem] md:left-[2rem]'>
@@ -157,7 +157,7 @@ const TripScreen : React.FC = () => {
                 </div>
             </HoverMoveContainer>
         </div>
-        <div className='flex gap-[2vw] items-center flex-wrap justify-center overflow-y-auto md:overflow-visible'>
+        <div className='flex gap-[2rem] items-center flex-wrap justify-center overflow-y-auto md:overflow-visible p-10'>
             <div className='flex flex-col gap-[2vh] items-center min-w-[25rem]'>
                 <div className='z-10'>
                     <HoverMoveContainer 

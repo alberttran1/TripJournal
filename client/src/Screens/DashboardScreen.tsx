@@ -12,6 +12,7 @@ const DashboardScreen = () => {
     const { user, loading: userLoading } = useAuth();
     const [tripsLoading, setTripsLoading] = useState(false);
     const navigate = useNavigate()
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     const [trips, setTrips] = useState([])
 
@@ -26,42 +27,61 @@ const DashboardScreen = () => {
     },[userLoading])
 
   return (
-    <div className='flex flex-col w-[100vw] h-[100vh] justify-center items-center'>
+    <div className='flex flex-col w-[100vw] h-[100vh] md:justify-center md:items-center'>
        <div className='absolute z-[-1]'>
             <HoverMoveContainer 
-                className='w-[calc(100vw-1rem)] h-[calc(100vh-1rem)] 
+                className='w-screen h-screen md:w-[calc(100vw-1rem)] md:h-[calc(100vh-1rem)] 
                     bg-gradient-to-r from-[#BFECFF] to-[#CDC1FF]
-                    rounded-xl shadow-xl 
+                    md:rounded-xl md:shadow-xl 
                     flex items-center justify-center
                  '
-                sensitivity={0.2}
+                sensitivity={isMobile ? 0 : 0.2}
                 >
-                <div className=''>
-                </div>
+                <div/>
             </HoverMoveContainer>
         </div>
-        <div className=' flex gap-4 min-w-[50rem]'>
-            <div className='w-[40vw] flex flex-col gap-[10vh]'>
+        <div className=' flex gap-4 flex-col md:flex-row md:min-w-[50rem]'>
+            <div className='m-10 md:w-[40vw] flex flex-col gap-8 md:gap-[10vh]'>
                 <HoverMoveContainer
                     doesTilt
                     sensitivity={0.3}>
-                    {!userLoading &&<div className='text-white text-[10vh] font-bold tracking-tight opacity-90'>
+                    <div className={`text-white text-4xl md:text-[10vh] font-bold tracking-tight ${userLoading ? "opacity-0" : "opacity-90"} transition-all`}>
                         Hello {user?.displayName?.split(" ")[0] || "User"},
-                    </div>}
+                    </div>
                 </HoverMoveContainer>
+                {isMobile && 
+                    <HoverMoveContainer
+                            doesTilt
+                            sensitivity={isMobile ? 0.2 : 1.2}
+                            tiltSensitivity={1.2}
+                            whileHover={{y: -10, scale: 1.2,}}
+                            initial={{opacity: 0, y: -40}}
+                            className=''
+                            >
+                        <JournalCard
+                            title={"Write an Entry"}
+                            subtitle={t.toLocaleDateString('en-US', {
+                                year: 'numeric',    // e.g., "2025"
+                                month: 'long',      // e.g., "May"
+                                day: 'numeric'      // e.g., "28"
+                                })}
+                            onClick={() => navigate("/create")}
+                        />
+                    </HoverMoveContainer>
+                }
                 <HoverMoveContainer
                     sensitivity={0.3}
-                    className='w-[40vw]'>
+                    className='md:w-[40vw]'>
                     {!userLoading && (
                      
                     !tripsLoading? 
                         <HorizontalScrollTripCards trips={trips}/>
                     :
-                        <FaSpinner size={"20vh"} className="ml-2 animate-spin text-white my-20" />
+                        <FaSpinner size={"20vh"} className="ml-2 animate-spin text-white md:my-20" />
                     )}
                 </HoverMoveContainer>
             </div>
-            <div className='w-[30vw] flex items-center justify-center'>
+            {!isMobile && <div className='md:w-[30vw] flex items-center justify-center'>
                 <HoverMoveContainer
                         doesTilt
                         sensitivity={1.2}
@@ -80,7 +100,7 @@ const DashboardScreen = () => {
                         onClick={() => navigate("/create")}
                     />
                 </HoverMoveContainer>
-            </div>
+            </div>}
         </div>
     </div>
   )

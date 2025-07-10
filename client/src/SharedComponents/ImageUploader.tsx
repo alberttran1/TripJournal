@@ -25,11 +25,13 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ description, loadingDescr
     setDisabled(true);
     setProgress(0);
   
-    const uploadedImages: UploadedImage[] = [];
+    // Create an array to store uploaded images at the correct index
+    const orderedResults: (UploadedImage | null)[] = new Array(total).fill(null);
     let completed = 0;
   
-    await Promise.all(
-      imageFiles.map(async (file) => {
+    // Create all upload promises in parallel
+    const uploadPromises = imageFiles.map((file, index) =>
+      (async () => {
         let takenAt: Date | null = null;
   
         try {
@@ -37,7 +39,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ description, loadingDescr
           takenAt = exif?.DateTimeOriginal ?? null;
         } catch (err) {
           console.warn(`EXIF failed for file ${file.name}`, err);
-          // Continue even if EXIF fails
         }
   
         const formData = new FormData();
@@ -51,32 +52,37 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ description, loadingDescr
           });
   
           if (!res.ok) throw new Error(`Upload failed for ${file.name}`);
-  
           const data = await res.json();
   
-          const newImage: UploadedImage = {
+          orderedResults[index] = {
             file,
             preview: data.secure_url,
             takenAt,
           };
   
-          uploadedImages.push(newImage);
-          addImages([newImage]);
-  
         } catch (err) {
           console.error(err);
+          orderedResults[index] = null; // mark as failed
         } finally {
           completed++;
           setProgress(Math.round((completed / total) * 100));
         }
-      })
+      })()
     );
   
+    // Wait for all uploads to complete
+    await Promise.all(uploadPromises);
+  
+    // Filter out any failed uploads (nulls), keep order
+    const finalImages = orderedResults.filter(
+      (img): img is UploadedImage => img !== null
+    );
+  
+    addImages(finalImages);
     setDisabled(false);
     setTimeout(() => setProgress(0), 300);
   }, [addImages]);  
   
-
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     handleFiles(e.dataTransfer.files);

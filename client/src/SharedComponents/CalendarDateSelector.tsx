@@ -71,7 +71,7 @@ const CalendarDateSelector: React.FC<CalendarDateSelectorProps> = ({selectedStar
 
   return (
     <div className="
-                    group min-w-xl w-[50vw] h-[55vh] mx-auto p-4 shadow rounded-xl                                
+                    group min-h-[23rem] md:min-w-xl w-full md:w-[50vw] md:h-[55vh] mx-auto p-4 shadow rounded-xl                                
                     bg-gradient-to-r from-[#8DD8FF] to-[#4E71FF]
                     ">
       <div className="flex justify-between items-center mb-4">

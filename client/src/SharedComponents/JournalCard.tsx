@@ -7,13 +7,14 @@ interface JournalCardProps {
 }
 
 const JournalCard : React.FC<JournalCardProps> = ({title, subtitle, onClick}) => {
+    
   return (
     <>
         <svg
         viewBox="20 0 60 410"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-[5vw] h-[25vw] min-w-[5rem] min-h-[25rem] absolute left-0 z-2 -translate-x-[50%]"
+        className="w-[16rem] h-[20rem] md:w-[5vw] md:h-[25vw] md:min-w-[5rem] md:min-h-[25rem] absolute left-0 z-2 -translate-x-[50%]"
         >
             <path
                 d="
@@ -50,7 +51,7 @@ const JournalCard : React.FC<JournalCardProps> = ({title, subtitle, onClick}) =>
         </svg>
         <div
             className="
-                        w-[20vw] h-[25vw] min-w-[20rem] min-h-[25rem] bg-gradient-to-br from-blue-400 to-purple-400
+                        w-[16rem] h-[20rem] md:w-[20vw] md:h-[25vw] md:min-w-[20rem] md:min-h-[25rem] bg-gradient-to-br from-blue-400 to-purple-400
                         rounded-xl shadow-lg hover:shadow-2xl p-6 cursor-pointer transition-colors 
                         left-0 top-0 z-1 relative
                     "

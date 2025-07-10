@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import HoverMoveContainer from '../SharedComponents/HoverMoveContainer'
-import { signInWithPopup } from "firebase/auth";
+import { getRedirectResult, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { auth, provider } from "../../firebase";
 import { useAuth } from '../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,8 @@ import { loginOrSignUp } from '../Api/authApi';
 const LoginScreen = () => {
     const { user, setUser } = useAuth();
     const navigate = useNavigate();
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 
     useEffect(() => {
         if (user) {
@@ -24,12 +26,38 @@ const LoginScreen = () => {
         }
     }, [user, navigate]);
 
+    useEffect(() => {
+        const checkRedirectResult = async () => {
+          try {
+            const result = await getRedirectResult(auth);
+            console.log(result)
+            if (result && result.user) {
+              const { uid, displayName, email, photoURL } = result.user;
+              if (displayName && email && photoURL) {
+                setUser({ uid, displayName, email, photoURL });
+              }
+            }
+          } catch (error) {
+            console.error("Redirect Sign-In Error:", error);
+          }
+        };
+      
+        checkRedirectResult();
+      }, []);
+
 
   const signInWithGoogle = async () => {
+    console.log(isMobile)
     try {
-        const result = await signInWithPopup(auth, provider);
-        const { uid, displayName, email, photoURL } = result.user;
-        if(displayName && email && photoURL) setUser({ uid, displayName, email, photoURL });
+        if (isMobile) {
+            signInWithRedirect(auth, provider);
+          } else {
+            const result = await signInWithPopup(auth, provider);
+            const { uid, displayName, email, photoURL } = result.user;
+            if (displayName && email && photoURL) {
+              setUser({ uid, displayName, email, photoURL });
+            }
+          }
     } catch (error) {
         console.error("Google Sign-In Error:", error);
     }
@@ -51,22 +79,40 @@ const LoginScreen = () => {
             </HoverMoveContainer>
         </div>
         <div className='absolute top-30 left-1/2 -translate-x-1/2'>
-            <div className='flex flex-col gap-[20vh] justify-center items-center'>
-                <HoverMoveContainer 
-                    className='
-                        bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent
-                        flex items-center justify-center
-                        font-bold text-gray-900 tracking-tight  text-4xl  sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-4
-                    '
-                    sensitivity={0.6}
-                    whileHover={{scale: 1.1}}
-                    doesTilt
-                    initial={{opacity: 0, y: -100}}
-                    >
-                    <div className=''>
-                        Trip Journal
-                    </div>
-                </HoverMoveContainer>
+            <div className='flex flex-col gap-[5rem] md:gap-[20vh] justify-center items-center'>
+                <div className="flex flex-col gap-[2rem] md:gap-[5vh] justify-center items-center">
+                    <HoverMoveContainer 
+                        className='
+                            bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent
+                            flex items-center justify-center text-center
+                            font-bold text-gray-900 tracking-tight text-8xl mb-4
+                        '
+                        sensitivity={0.4}
+                        whileHover={{scale: 1.1}}
+                        doesTilt
+                        initial={{opacity: 0, y: -100}}
+                        >
+                        <div className=''>
+                            Trip Journal
+                        </div>
+                    </HoverMoveContainer>
+
+                    <HoverMoveContainer 
+                        className='
+                            bg-white bg-clip-text text-transparent
+                            flex items-center justify-center text-center
+                            font-bold text-gray-900 tracking-tight text-3xl
+                        '
+                        sensitivity={0.3}
+                        whileHover={{scale: 1.1}}
+                        doesTilt
+                        initial={{opacity: 0, y: -100}}
+                        >
+                        <div className=''>
+                            Your journey, effortlessly documented.
+                        </div>
+                    </HoverMoveContainer>
+                </div>
 
                 <HoverMoveContainer 
                     sensitivity={1}

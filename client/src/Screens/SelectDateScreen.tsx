@@ -16,12 +16,15 @@ type SelectDateScreenProps = {
 }
 
 const SelectDateScreen: React.FC<SelectDateScreenProps> = (props) => {
+    
     let sDate;
     let eDate
     if(props.asComponent) {
         sDate = props.trip.startDate
         eDate = props.trip.endDate
     }
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
     const [startDate, setStartDate] = useState<Date | undefined>(sDate);
     const [endDate, setEndDate] = useState<Date | undefined>(eDate);
 
@@ -40,12 +43,12 @@ const SelectDateScreen: React.FC<SelectDateScreenProps> = (props) => {
     <div className='flex flex-col w-[100vw] h-[100vh] justify-center items-center'>
        <div className='absolute'>
             <HoverMoveContainer
-                className='w-[calc(100vw-1rem)] h-[calc(100vh-1rem)] 
+                className='w-screen h-screen md:w-[calc(100vw-1rem)] md:h-[calc(100vh-1rem)] 
                     bg-gradient-to-r from-[#BFECFF] to-[#CDC1FF]
-                    rounded-xl shadow-xl 
+                    md:rounded-xl shadow-xl 
                     flex items-center justify-center
                  '
-                sensitivity={0.2}
+                sensitivity={isMobile ? 0 : 0.2}
                 >
                 <div className='absolute top-[2rem] left-[2rem]'>
                     <HoverMoveContainer
@@ -68,13 +71,13 @@ const SelectDateScreen: React.FC<SelectDateScreenProps> = (props) => {
                     className='
                     flex items-center justify-center
                     '
-                    sensitivity={0.4}
+                    sensitivity={isMobile ? 0.2 : 0.4}
                     tiltSensitivity={0.2}
                     whileHover={{scale: 1.1}}
                     doesTilt
                     initial={{opacity: 0, y: -100}}
                     >
-                    <div className='text-[10vh] font-bold  text-white'>
+                    <div className='text-4xl md:text-[10vh] font-bold  text-white'>
                         Select trip dates
                     </div>
 
@@ -82,8 +85,9 @@ const SelectDateScreen: React.FC<SelectDateScreenProps> = (props) => {
                 <HoverMoveContainer 
                     className='
                     flex items-center justify-center
+                    w-[90vw]
                     '
-                    sensitivity={0.4}
+                    sensitivity={isMobile ? 0.2 : 0.4}
                     tiltSensitivity={0.2}
                     whileHover={{scale: 1.1}}
                     doesTilt
