@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import HoverMoveContainer from '../SharedComponents/HoverMoveContainer'
-import { getRedirectResult, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { getRedirectResult, signInWithPopup} from "firebase/auth";
 import { auth, provider } from "../../firebase";
 import { useAuth } from '../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { loginOrSignUp } from '../Api/authApi';
 const LoginScreen = () => {
     const { user, setUser } = useAuth();
     const navigate = useNavigate();
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    // const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 
     useEffect(() => {
